@@ -11,7 +11,7 @@ from rich.style import Style
 import pystyle
 from pystyle import Colors, Colorate
 
-from cpmrm import CPMRm
+from cpmtooldev import CPMRm
 
 __CHANNEL_USERNAME__ = "cpmrmstudio"
 __GROUP_USERNAME__   = "cpmrmstudiochat"
