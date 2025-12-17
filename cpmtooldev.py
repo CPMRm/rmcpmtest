@@ -5,7 +5,7 @@ import subprocess
 import urllib.parse
 import json
 
-__ENDPOINT_URL__: str = "cpmlan.squareweb.app/api"
+__ENDPOINT_URL__: str = "https://cpmlan.squareweb.app/api"
 
 class CPMTooldev:
     def __init__(self, access_key) -> None:
