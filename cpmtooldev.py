@@ -112,7 +112,7 @@ class CPMTooldev:
     def delete(self):
         payload = { "account_auth": self.auth_token }
         params = { "key": self.access_key }
-        response = requests.post(f"{__ENDPOINT_URL__}/account_delete", params=params, json=payload)  # Changed and fixed missing variable
+        response = requests.post(f"{__ENDPOINT_URL__}/account_delete", params=params, data=payload)  # Changed and fixed missing variable
         response_decoded = response.json()
         self.log_action("account_delete", { "payload": payload, "params": params })
         return response_decoded.get("error")
