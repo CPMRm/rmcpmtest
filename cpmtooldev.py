@@ -169,7 +169,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_id", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("change_id", { "payload": payload, "params": params })
         return response_decoded.get("ok")
     
     def get_player_car(self, car_id) -> any:
