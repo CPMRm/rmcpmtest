@@ -145,7 +145,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_money", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("set_money", { "payload": payload, "params": params })
         print(response_decoded)
         return response_decoded.get("ok")
     
