@@ -23,7 +23,7 @@ class CPMTooldev:
             "acc_email": email,
             "acc_pass": password
         } 
-        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, json=payload)
+        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, data=payload)
         response_decoded = response.json()
         if response_decoded.get("ok"):
             self.auth_token = response_decoded.get("auth")
@@ -122,7 +122,7 @@ class CPMTooldev:
     def get_player_data(self) -> any:
         payload = { "account_auth": self.auth_token }
         params = { "key": self.access_key }
-        response = requests.post(f"{__ENDPOINT_URL__}/get_data", params=params, json=payload)  # Changed
+        response = requests.post(f"{__ENDPOINT_URL__}/get_data", params=params, data=payload)  # Changed
         response_decoded = response.json()
         return response_decoded
     
