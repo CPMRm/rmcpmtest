@@ -88,7 +88,6 @@ class CPMTooldev:
         params = { "key": self.access_key } 
         response = requests.post(f"{__ENDPOINT_URL__}/change_email", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("change_email", { "payload": payload, "params": params })
         if response_decoded.get("new_token"):
             self.auth_token = response_decoded["new_token"]
         return response_decoded.get("ok")
@@ -108,7 +107,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/account_register", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("account_register", { "payload": payload, "params": params })
         return response_decoded.get("error")
     
     def delete(self):
@@ -131,7 +129,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_rank", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("set_rank", { "payload": payload, "params": params })
         return response_decoded.get("ok")
     
     def get_key_data(self) -> any:
@@ -145,7 +142,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_money", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        print(response_decoded)
         return response_decoded.get("ok")
     
     def set_player_coins(self, amount) -> bool:
@@ -153,7 +149,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_coins", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("set_coin", { "payload": payload, "params": params })
         return response_decoded.get("ok")
     
     def set_player_name(self, name) -> bool:
@@ -161,7 +156,6 @@ class CPMTooldev:
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/set_name", params=params, json=payload)  # Changed
         response_decoded = response.json()
-        self.log_action("set_name", { "payload": payload, "params": params })
         return response_decoded.get("ok")
     
     def set_player_localid(self, id) -> bool:
