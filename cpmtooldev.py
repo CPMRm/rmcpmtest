@@ -14,18 +14,6 @@ class CPMTooldev:
         self.telegram_id = None
         
     
-    def log_action(self, action_name, data):
-        log_url = f"{__ENDPOINT_URL__}/logging" 
-        key_data = self.get_key_data()
-        self.telegram_id = key_data.get("telegram_id", "Unknown")
-        log_data = { "action": action_name, "data": data, "telegram_id": self.telegram_id }
-        
-        try:
-            response = requests.post(log_url, json=log_data)
-            if response.status_code != 200:
-                print(f"Logging failed: {response.status_code}")
-        except Exception as e:
-            print(f"Logging error: {e}")
     
     def login(self, email, password) -> int:
         payload = { "account_email": email, "account_password": password }
