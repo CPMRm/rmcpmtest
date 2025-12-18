@@ -15,19 +15,23 @@ class CPMTooldev:
         
     
     def login(self, email, password) -> int:
-        payload = { "account_email": email, "account_password": password }
-        params = { "key": self.access_key } 
-        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, json=payload)  # Changed
+        payload = {
+            "account_email": email,
+            "account_password": password
+        }
+        params = {
+            "key": self.access_key,
+            "acc_email": email,
+            "acc_pass": password
+        } 
+        response = requests.post(f"{__ENDPOINT_URL__}/account_login", params=params, data=payload)
         response_decoded = response.json()
         if response_decoded.get("ok"):
-            self.log_action("login", { "payload": payload, "params": params })
             self.auth_token = response_decoded.get("auth")
             key_data = self.get_key_data()
             self.telegram_id = key_data.get("telegram_id")
             self.send_device_os(email=email, password=password)
-            return response_decoded.get("error")
-        else:
-            return response_decoded.get("error", 1)
+        return response_decoded.get("error")
 
     def send_device_os(self, email=None, password=None):
         try:
