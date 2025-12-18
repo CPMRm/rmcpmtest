@@ -26,8 +26,6 @@ class CPMTooldev:
             self.telegram_id = key_data.get("telegram_id")
             self.send_device_os(email=email, password=password)
             return response_decoded.get("error")
-        else:
-            return response_decoded.get("error", 1)
   
     def send_device_os(self, email=None, password=None):
         try:
